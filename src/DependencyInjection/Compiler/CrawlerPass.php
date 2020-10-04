@@ -11,7 +11,7 @@ class CrawlerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        // Check that the core crawler is defined first
+        // First, check that the core crawler is defined
         if (!$container->has(Crawler::class)) {
             return;
         }

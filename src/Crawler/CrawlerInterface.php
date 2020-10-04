@@ -2,7 +2,7 @@
 
 namespace App\Crawler;
 
-use Symfony\Component\Panther\DomCrawler\Crawler as DomCrawler;
+use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 
 interface CrawlerInterface
 {
