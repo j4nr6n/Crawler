@@ -5,7 +5,7 @@
 # Example Crawler
 ```php
 use App\Crawler\AbstractCrawler;
-use Symfony\Component\Panther\DomCrawler\Crawler as DomCrawler;
+use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 
 class MyCrawler extends AbstractCrawler
 {
