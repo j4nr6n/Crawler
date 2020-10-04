@@ -22,13 +22,10 @@ class MyCrawler extends AbstractCrawler
 }
 ```
 
-```yaml
-# config/services.yaml
-App\Crawler\MyCrawler:
-        decorates: 'App\Crawler\Crawler'
-```
-
 That's pretty much it. ¯\\\_(ツ)_/¯
+
+Because the class implements `CrawlerInterface` (via `AbstractCrawler`),
+it will automatically decorate the core crawler.
 
 Run `bin/console crawler:crawl 'https://some-url.tld'` to dispatch
 a crawl. Then run `bin/console messenger:consume async -vvv` to

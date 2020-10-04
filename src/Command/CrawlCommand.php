@@ -40,15 +40,7 @@ class CrawlCommand extends Command
 
         $io->section(sprintf('Dispatching crawl for "%s"...', $input->getArgument('url')));
 
-        /**
-         * TODO: The "URL" passed to Crawl, should be an object.
-         *
-         * I need to see if there is already a better URL implementation.
-         * I'm not sure how much I care for the 'ext-http' one.
-         */
-        $urlParts = parse_url($input->getArgument('url'));
-
-        $crawl = new Crawl($urlParts);
+        $crawl = new Crawl(parse_url($input->getArgument('url')));
 
         $this->messageBus->dispatch($crawl);
 

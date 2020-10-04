@@ -2,7 +2,6 @@
 
 namespace App\Crawler;
 
-use App\Message\Crawl;
 use Facebook\WebDriver\Remote\RemoteWebElement;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Panther\DomCrawler\Crawler as DomCrawler;

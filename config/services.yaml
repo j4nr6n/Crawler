@@ -29,12 +29,3 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-
-    App\Crawler\CrawlerInterface:
-        alias: 'App\Crawler\Crawler'
-
-    App\Crawler\OpenGraphCrawler:
-        decorates: 'App\Crawler\Crawler'
-
-    App\Crawler\LinkCrawler:
-        decorates: 'App\Crawler\Crawler'
