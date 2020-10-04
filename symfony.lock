@@ -1,4 +1,7 @@
 {
+    "bopoda/robots-txt-parser": {
+        "version": "v2.4.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },

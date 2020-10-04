@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "089d3f3d12c27479b4f56031ceec1969",
+    "content-hash": "12fec02e147a592c610ff32478f5350b",
     "packages": [
+        {
+            "name": "bopoda/robots-txt-parser",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bopoda/robots-txt-parser.git",
+                "reference": "484a66351752cd5eb53206974f4be9240d35f408"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bopoda/robots-txt-parser/zipball/484a66351752cd5eb53206974f4be9240d35f408",
+                "reference": "484a66351752cd5eb53206974f4be9240d35f408",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=3.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RobotsTxtParser\\": "src/RobotsTxtParser"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Yurkevich",
+                    "email": "bopodaa@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Class for parsing robots.txt files according to Google, Yandex specifications.",
+            "homepage": "https://github.com/bopoda/robots-txt-parser",
+            "keywords": [
+                "google",
+                "parser",
+                "robots.txt",
+                "yandex"
+            ],
+            "time": "2019-10-29T16:03:24+00:00"
+        },
         {
             "name": "composer/package-versions-deprecated",
             "version": "1.11.99",
