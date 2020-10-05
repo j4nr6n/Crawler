@@ -2,9 +2,9 @@
 
 namespace App\Crawler;
 
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 interface CrawlerInterface
 {
-    public function crawl(array $urlParts): DomCrawler;
+    public function crawl(array $urlParts): ResponseInterface;
 }

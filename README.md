@@ -5,7 +5,8 @@
 # Example Crawler
 ```php
 use App\Crawler\CrawlerInterface;
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
+use Symfony\Contracts\HttpClient\ResponseInterface;
+use Symfony\Component\DomCrawler\Crawler;
 
 class MyCrawler implements CrawlerInterface
 {
@@ -15,11 +16,12 @@ class MyCrawler implements CrawlerInterface
         $this->decorated = $decorated;    
     }
 
-    public function crawl(array $urlParts): DomCrawler
+    public function crawl(array $urlParts): ResponseInterface
     {
         // Pre request kind of things.
 
-        $crawler = $this->decorated->crawl($urlParts);
+        $response = $this->decorated->crawl($urlParts);
+        $crawler = new Crawler($response->getContent());
 
         // $crawler is a DOM Crawler. Crawl the DOM...
 

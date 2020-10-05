@@ -2,7 +2,6 @@
 
 namespace App\Crawler;
 
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 use Symfony\Component\Messenger\Exception\RecoverableMessageHandlingException;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -10,6 +9,7 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * The core crawler.
@@ -28,7 +28,7 @@ final class Crawler implements CrawlerInterface
         $this->httpClient = $httpClient;
     }
 
-    public function crawl(array $urlParts): DomCrawler
+    public function crawl(array $urlParts): ResponseInterface
     {
         if (!$urlParts['host']) {
             throw new \InvalidArgumentException('"host" key not found in url parts.');
@@ -53,8 +53,14 @@ final class Crawler implements CrawlerInterface
              * Symfony's HTTP client is async. Calling `getContent()` will
              * block until the full response content is available. This is
              * also the point that exceptions are thrown.
+             *
+             * I'm forcing the request to resolve here and now, because
+             * I don't want to have to handle these exceptions in every
+             * other crawler.
+             *
+             * This will likely change soon™.
              */
-            return new DomCrawler($response->getContent());
+            $response->getContent();
         } catch (TransportExceptionInterface $exception) {
             // Network errors
             throw new UnrecoverableMessageHandlingException(
@@ -84,5 +90,7 @@ final class Crawler implements CrawlerInterface
                 $exception
             );
         }
+
+        return $response;
     }
 }

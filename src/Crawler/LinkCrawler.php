@@ -3,9 +3,10 @@
 namespace App\Crawler;
 
 use App\Message\Crawl;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Parses anchor tag's href attributes and dispatches crawls for each of them.
@@ -26,9 +27,10 @@ final class LinkCrawler implements CrawlerInterface
         $this->messageBus = $messageBus;
     }
 
-    public function crawl(array $urlParts): DomCrawler
+    public function crawl(array $urlParts): ResponseInterface
     {
-        $crawler = $this->decorated->crawl($urlParts);
+        $response = $this->decorated->crawl($urlParts);
+        $crawler = new Crawler($response->getContent());
 
         $links = $crawler->filterXPath('//*/a[not(@href=\'#\')]');
 
@@ -57,6 +59,8 @@ final class LinkCrawler implements CrawlerInterface
         //     $this->messageBus->dispatch(new Crawl($urlParts));
         // }
 
-        return $crawler;
+        dump($urls);
+
+        return $response;
     }
 }

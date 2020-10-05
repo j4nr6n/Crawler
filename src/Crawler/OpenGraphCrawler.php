@@ -2,7 +2,8 @@
 
 namespace App\Crawler;
 
-use Symfony\Component\DomCrawler\Crawler as DomCrawler;
+use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
  * Parses Open Graph data
@@ -16,9 +17,10 @@ final class OpenGraphCrawler implements CrawlerInterface
         $this->decorated = $decorated;
     }
 
-    public function crawl(array $urlParts): DomCrawler
+    public function crawl(array $urlParts): ResponseInterface
     {
-        $crawler = $this->decorated->crawl($urlParts);
+        $response = $this->decorated->crawl($urlParts);
+        $crawler = new Crawler($response->getContent());
 
         $openGraphData = $crawler->filterXPath('//*/meta[starts-with(@property, \'og:\')]');
 
@@ -32,6 +34,6 @@ final class OpenGraphCrawler implements CrawlerInterface
         // TODO: Do something with the data.
         dump($results);
 
-        return $crawler;
+        return $response;
     }
 }
