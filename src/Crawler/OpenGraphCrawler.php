@@ -7,11 +7,18 @@ use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 /**
  * Parses Open Graph data
  */
-class OpenGraphCrawler extends AbstractCrawler
+final class OpenGraphCrawler implements CrawlerInterface
 {
+    private CrawlerInterface $decorated;
+
+    public function __construct(CrawlerInterface $decorated)
+    {
+        $this->decorated = $decorated;
+    }
+
     public function crawl(array $urlParts): DomCrawler
     {
-        $crawler = $this->crawler->crawl($urlParts);
+        $crawler = $this->decorated->crawl($urlParts);
 
         $openGraphData = $crawler->filterXPath('//*/meta[starts-with(@property, \'og:\')]');
 

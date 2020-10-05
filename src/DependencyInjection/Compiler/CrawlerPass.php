@@ -18,7 +18,6 @@ class CrawlerPass implements CompilerPassInterface
 
         // Get all tagged services
         // Anything implementing `CrawlerInterface` is automatically tagged
-        // Anything extending `AbstractCrawler` implements `CrawlerInterface`
         $taggedServices = $container->findTaggedServiceIds('app.crawler');
 
         // Make all crawlers (except the core crawler) decorate the core crawler

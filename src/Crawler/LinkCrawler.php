@@ -10,25 +10,25 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 /**
  * Parses anchor tag's href attributes and dispatches crawls for each of them.
  */
-class LinkCrawler extends AbstractCrawler
+final class LinkCrawler implements CrawlerInterface
 {
+    private CrawlerInterface $decorated;
     private HttpClientInterface $httpClient;
     private MessageBusInterface $messageBus;
 
     public function __construct(
-        CrawlerInterface $crawler,
+        CrawlerInterface $decorated,
         HttpClientInterface $httpClient,
         MessageBusInterface $messageBus
     ) {
+        $this->decorated = $decorated;
         $this->httpClient = $httpClient;
         $this->messageBus = $messageBus;
-
-        parent::__construct($crawler);
     }
 
     public function crawl(array $urlParts): DomCrawler
     {
-        $crawler = $this->crawler->crawl($urlParts);
+        $crawler = $this->decorated->crawl($urlParts);
 
         $links = $crawler->filterXPath('//*/a[not(@href=\'#\')]');
 
